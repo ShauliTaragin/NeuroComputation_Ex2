@@ -1,6 +1,4 @@
 import sys
-
-import numpy
 import numpy as np
 
 
@@ -57,6 +55,7 @@ class KSOM:
                             current_point[0] - self.clusters[best_j[0], best_j[1]][0])
                 self.clusters[i, j][1] += self.learning_rate * radius * (
                             current_point[1] - self.clusters[best_j[0], best_j[1]][1])
+        pass
 
     def update_learning_rate(self, t):
         # lessen the learning rate

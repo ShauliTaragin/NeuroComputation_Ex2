@@ -1,6 +1,8 @@
 import numpy as np
 import json
 
+from KSOM import KSOM
+
 
 def createDataSet():
     points = []
@@ -24,3 +26,7 @@ def saveDataSet(DataSetPoints):
 if __name__ == '__main__':
     points = createDataSet()
     saveDataSet(points)
+    model=KSOM(1,100)
+    model.fit(points,100)
+
+
