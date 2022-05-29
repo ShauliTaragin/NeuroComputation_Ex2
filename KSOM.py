@@ -29,6 +29,18 @@ class KSOM:
                     if best_Dj > D_j:
                         best_Dj = D_j
                         best_j = j
-                self.update_weights(best_j, point,t)
+                self.update_weights(best_j, point, t)
+            self.update_learning_rate(t)
+            self.update_radius(t)
+            
+    def update_weights(self, best_j, current_point, t):
+        print("yuvi needs to write this code")
 
-    def update_weights(self , best_j,current_point,t):
+    def update_learning_rate(self, t):
+        # lessen the learning rate
+        self.learning_rate = 0.9*(1-(t/1000))
+        pass
+
+    def update_radius(self, t):
+        # update the radius
+        pass
