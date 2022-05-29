@@ -13,7 +13,14 @@ class KSOM:
         if h==1:
             temp_clusters = np.random.rand((w, 2))
             self.clusters = [(i[0],i[1]) for i in temp_clusters]
-
+        else:
+            temp_clusters = np.random.rand((w, 2))
+            Temp_clusters = [(i[0],i[1]) for i in temp_clusters]
+            k =0
+            for i in range(10):
+                for j in range(10):
+                    self.clusters[i][j] = Temp_clusters[k]
+                    k+=1
         self.shape = (h,w)
         self.radius = r
 
