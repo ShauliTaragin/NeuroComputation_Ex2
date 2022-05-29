@@ -5,13 +5,16 @@ import numpy as np
 
 
 class KSOM:
-    def _init_(self, h, w, num_of_clusters=100, alpha=0.6, r=0):
+    def __init__(self, h, w, num_of_clusters=100, alpha=0.6, r=0):
         self.learning_rate = alpha
         self.num_of_clusters = num_of_clusters
         # maybe change to tuple once we do part 1.2
         # uniform distribution for the weights
-        self.clusters = np.random.rand((h, w))
-        self.shape = (h, w)
+        if h==1:
+            temp_clusters = np.random.rand((w, 2))
+            self.clusters = [(i[0],i[1]) for i in temp_clusters]
+
+        self.shape = (h,w)
         self.radius = r
 
     def fit(self, input_data, num_of_iterations):
@@ -22,10 +25,10 @@ class KSOM:
                 best_Dj = sys.maxsize
                 best_j = 0
                 # run on all clusters
-                for j in range(self.num_of_clusters[1]):
+                for j in range(self.num_of_clusters):
                     # dj for x   =  w_ij   -  x
-                    d_j_x = (self.clusters[0][j] - point[0])
-                    d_j_y = (self.clusters[1][j] - point[1])
+                    d_j_x = (self.clusters[j][0] - point[0])
+                    d_j_y = (self.clusters[j][1] - point[1])
                     D_j = d_j_x ** 2 + d_j_y ** 2
                     if best_Dj > D_j:
                         best_Dj = D_j
