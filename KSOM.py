@@ -9,7 +9,7 @@ class KSOM:
         # maybe change to tuple once we do part 1.2
         # uniform distribution for the weights
         if h==1:
-            temp_clusters = np.random.rand((w, 2))
+            temp_clusters = np.random.rand(w, 2)
             self.clusters = [(i[0],i[1]) for i in temp_clusters]
         else:
             temp_clusters = np.random.rand((w, 2))
@@ -23,7 +23,7 @@ class KSOM:
         self.radius = r
 
     def fit(self, input_data, num_of_iterations):
-        for t in num_of_iterations:
+        for t in range(num_of_iterations):
             # check if we need to make the points random
             for point in input_data:
                 # parameters to hold info from the following loop
