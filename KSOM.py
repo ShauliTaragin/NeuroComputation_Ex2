@@ -40,12 +40,30 @@ class KSOM:
                     if best_Dj > D_j:
                         best_Dj = D_j
                         best_j = j
-                self.update_weights(best_j, point, t)
+                self.update_weights_1D(best_j, point)
             self.update_learning_rate(t)
             self.update_radius(t)
 
-    def update_weights(self, best_j, current_point, t):
-        print("yuvi needs to write this code")
+    def update_weights_1D(self, best_j, current_point):
+        best_n = np.array([1, best_j])
+        for i in range(self.num_of_clusters):
+            dist = np.linalg.norm(best_n - np.array([1, i]))
+            radius = np.exp(-dist ** 2 / (2 * self.radius ** 2))  # check that minus out of **
+            self.clusters[i][0] += self.learning_rate * radius * (current_point[0] - self.clusters[best_j][0])
+            self.clusters[i][1] += self.learning_rate * radius * (current_point[1] - self.clusters[best_j][1])
+
+        pass
+
+    def update_weights_2D(self, best_j: tuple, current_point: tuple):
+        for i in range(self.shape[0]):
+            for j in range(self.shape[1]):
+                dist = np.linalg.norm(best_j - np.array([i, j]))
+                radius = np.exp(-dist ** 2 / (2 * self.radius ** 2))  # check that minus out of **
+
+                self.clusters[i, j][0] += self.learning_rate * radius * (
+                            current_point[0] - self.clusters[best_j[0], best_j[1]][0])
+                self.clusters[i, j][1] += self.learning_rate * radius * (
+                            current_point[1] - self.clusters[best_j[0], best_j[1]][1])
 
     def update_learning_rate(self, t):
         # lessen the learning rate
@@ -53,5 +71,5 @@ class KSOM:
         pass
 
     def update_radius(self, t):
-        # update the radius
+        self.radius *= 0.9 * (1 - (t / 1000))
         pass
