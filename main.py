@@ -102,7 +102,7 @@ def FitandDraw(model, data, iterations):
 
 if __name__ == '__main__':
     # points = createDataSet(1)
-    points = createDataSet(1)
+    # points = createDataSet(1)
     # saveDataSet(points)
     # 1 A (1,100)
     # model1a = KSOM(1, 100)
@@ -115,5 +115,6 @@ if __name__ == '__main__':
     model1c = KSOM(15,15, num_of_clusters=225)
     # FitandDraw(model1c, points)
     # 1 D Non uniform b
-    points = createDataSet(4)
-    model1c.fit(points, 250)
+    points = createDataSet(6)
+    model1c.fit(points, 100)
+    model1c.plotClusters(points,100,100)
