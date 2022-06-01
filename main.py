@@ -28,6 +28,39 @@ def createDataSet(condition):
                 y = np.random.randint(800, 1000)
             if (x / 1000, y / 1000) not in points:
                 points.append((x / 1000, y / 1000))
+    elif condition == 4:
+        for j in range(200):
+            x = np.random.randint(100, 200)
+            y = np.random.randint(400, 1000)
+            if (x / 1000, y / 1000) not in points:
+                points.append((x / 1000, y / 1000))
+        for j in range(200):
+            x = np.random.randint(300, 400)
+            y = np.random.randint(400, 1000)
+            if (x / 1000, y / 1000) not in points:
+                points.append((x / 1000, y / 1000))
+        # for j in range(200):
+        #     x = np.random.randint(500, 600)
+        #     y = np.random.randint(400, 1000)
+        #     if (x / 1000, y / 1000) not in points:
+        #         points.append((x / 1000, y / 1000))
+        for j in range(200):
+            x = np.random.randint(700, 800)
+            y = np.random.randint(400, 1000)
+            if (x / 1000, y / 1000) not in points:
+                points.append((x / 1000, y / 1000))
+        for i in range(1000):
+            x = np.random.randint(100, 800)
+            y = np.random.randint(0, 400)
+            if (x / 1000, y / 1000) not in points:
+                points.append((x / 1000, y / 1000))
+    elif condition == 5:
+        while len(points) != 1000:
+            x = np.random.randint(-10000, 10000)
+            y = np.random.randint(-10000, 10000)
+            if (x / 1000, y / 1000) not in points and 2 <= (x/1000) ** 2 + (y/1000) ** 2 <= 4:
+                points.append((x / 1000, y / 1000))
+
     return points
 
 
@@ -40,8 +73,11 @@ def saveDataSet(DataSetPoints):
         print("saved")
 
 
+
+
 def FitandDraw(model, data, iterations):
     model.fit(data, iterations)
+
 
 
 if __name__ == '__main__':

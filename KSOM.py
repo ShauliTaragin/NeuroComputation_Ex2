@@ -13,16 +13,24 @@ class KSOM:
             temp_clusters = np.random.rand(w, 2)
             self.clusters = [[[i[0], i[1]] for i in temp_clusters]]
         else:
-            self.clusters = [[[0, 0]] * 10 for i in range(10)]
-            for i in range(10):
-                for j in range(10):
+            self.clusters = [[[0, 0]] * h for i in range(w)]
+            for i in range(h):
+                for j in range(w):
                     # since we have a 10x10 cluster matrix we want each point in the matrix to be in order
                     # therefore we draw x and y in this manner e.g i=0,j=0 ==> x=(0.0,0.1),y=(0.0,0.1)
-                    x = np.random.uniform(i * 0.1, i * 0.1 + 0.1)
-                    y = np.random.uniform(j * 0.1, j * 0.1 + 0.1)
+                    x = np.random.uniform(i * (1/h), i * (1/h) + (1/h))
+                    y = np.random.uniform(j * (1/w), j * (1/w) + (1/w))
                     self.clusters[i][j] = [x, y]
+        x_model_a = []
+        y_model_a = []
         self.shape = (h, w)
         self.radius = r
+        for i in range(self.shape[0]):
+            for j in range(self.shape[1]):
+                x_model_a.append(self.clusters[i][j][0])
+                y_model_a.append(self.clusters[i][j][1])
+        plt.scatter(x_model_a, y_model_a, color="red")
+        plt.show()
 
     def plotClusters(self, points, current_iteration, num_of_iteration):
         x_points = []
