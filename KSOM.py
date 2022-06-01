@@ -18,19 +18,11 @@ class KSOM:
                 for j in range(w):
                     # since we have a 10x10 cluster matrix we want each point in the matrix to be in order
                     # therefore we draw x and y in this manner e.g i=0,j=0 ==> x=(0.0,0.1),y=(0.0,0.1)
-                    x = np.random.uniform(i * (1/h), i * (1/h) + (1/h))
-                    y = np.random.uniform(j * (1/w), j * (1/w) + (1/w))
+                    x = np.random.uniform(i * (1 / h), i * (1 / h) + (1 / h))
+                    y = np.random.uniform(j * (1 / w), j * (1 / w) + (1 / w))
                     self.clusters[i][j] = [x, y]
-        x_model_a = []
-        y_model_a = []
         self.shape = (h, w)
         self.radius = r
-        for i in range(self.shape[0]):
-            for j in range(self.shape[1]):
-                x_model_a.append(self.clusters[i][j][0])
-                y_model_a.append(self.clusters[i][j][1])
-        plt.scatter(x_model_a, y_model_a, color="red")
-        plt.show()
 
     def plotClusters(self, points, current_iteration, num_of_iteration):
         x_points = []
@@ -80,7 +72,7 @@ class KSOM:
     def fit(self, input_data, num_of_iterations):
         for t in range(num_of_iterations):
             print(f"iter number :{t}")
-            if t % 200 == 0 or t == 10 or t == 100:
+            if t % 50 == 0 or t == 10:
                 self.plotClusters(input_data, t, num_of_iterations)
             # check if we need to make the points random
             for point in input_data:
@@ -99,8 +91,6 @@ class KSOM:
                 self.update_weights(best_j, point)
             self.update_learning_rate(t)
             self.update_radius(t)
-
-
 
     def update_weights(self, best_j: list, current_point: tuple):
         for i in range(self.shape[0]):

@@ -28,7 +28,7 @@ def createDataSet(condition):
                 y = np.random.randint(800, 1000)
             if (x / 1000, y / 1000) not in points:
                 points.append((x / 1000, y / 1000))
-    elif condition == 4: #hand with all fingers
+    elif condition == 4:  # hand with all fingers
         for j in range(200):
             x = np.random.randint(100, 200)
             y = np.random.randint(400, 1000)
@@ -58,7 +58,7 @@ def createDataSet(condition):
         while len(points) != 1000:
             x = np.random.randint(-10000, 10000)
             y = np.random.randint(-10000, 10000)
-            if (x / 1000, y / 1000) not in points and 2 <= (x/1000) ** 2 + (y/1000) ** 2 <= 4:
+            if (x / 1000, y / 1000) not in points and 2 <= (x / 1000) ** 2 + (y / 1000) ** 2 <= 4:
                 points.append((x / 1000, y / 1000))
     elif condition == 6:
         for j in range(200):
@@ -93,29 +93,24 @@ def saveDataSet(DataSetPoints):
         print("saved")
 
 
-
-
 def FitandDraw(model, data, iterations):
     model.fit(data, iterations)
 
 
-
 if __name__ == '__main__':
-    #points = createDataSet(1)
-    points = createDataSet(2)
+    # points = createDataSet(1)
+    points = createDataSet(5)
     # saveDataSet(points)
     # 1 A (1,100)
     # model1a = KSOM(1, 100)
     # FitandDraw(model1a, points, 10)
     model1a = KSOM(1, 100)
-    FitandDraw(model1a, points, 1000)
+    FitandDraw(model1a, points, 250)
     # 1 B (10,10)
-    model1b=KSOM(10,10)
-    FitandDraw(model1b , points,100)
     # 1 C Non uniform a
     # points = createDataSet(2)
     model1c = KSOM(1, 100)
     # FitandDraw(model1c, points)
     # 1 D Non uniform b
     points = createDataSet(3)
-    model1c.fit(points,500)
+    model1c.fit(points, 500)
