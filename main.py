@@ -5,6 +5,17 @@ from KSOM import KSOM
 
 
 def createDataSet(condition):
+    """
+    Creating Data set according to differnet cases
+    :param condition: cases:
+    1 : uniform distribution (for regular case and 10x10 on a 2D plane)
+    2 : non uniform distribution on a liner plane example 1
+    3 : non uniform distribution on a liner plane example 2
+    4 : Donut
+    5 : Monkey hand
+    6 : Cut off monkey hand
+    """
+
     points = []
     if condition == 1:
         while len(points) != 1000:
@@ -28,7 +39,7 @@ def createDataSet(condition):
                 y = np.random.randint(800, 1000)
             if (x / 1000, y / 1000) not in points:
                 points.append((x / 1000, y / 1000))
-    elif condition == 4:  # hand with all fingers
+    elif condition == 5:  # hand with all fingers
         for j in range(200):
             x = np.random.randint(100, 200)
             y = np.random.randint(400, 1000)
@@ -54,13 +65,13 @@ def createDataSet(condition):
             y = np.random.randint(0, 400)
             if (x / 1000, y / 1000) not in points:
                 points.append((x / 1000, y / 1000))
-    elif condition == 5:
+    elif condition == 4: # donut
         while len(points) != 1000:
             x = np.random.randint(-10000, 10000)
             y = np.random.randint(-10000, 10000)
             if (x / 1000, y / 1000) not in points and 2 <= (x / 1000) ** 2 + (y / 1000) ** 2 <= 4:
                 points.append((x / 1000, y / 1000))
-    elif condition == 6:
+    elif condition == 6: # cut off hand
         for j in range(200):
             x = np.random.randint(100, 200)
             y = np.random.randint(400, 1000)
@@ -92,25 +103,31 @@ def saveDataSet(DataSetPoints):
         json.dump(data, f)
         print("saved")
 
-
-def FitandDraw(model, data, iterations):
-    model.fit(data, iterations)
-
-
 if __name__ == '__main__':
-    # points = createDataSet(1)
     points = createDataSet(1)
     # saveDataSet(points)
     # 1 A (1,100)
-    # model1a = KSOM(1, 100)
-    # FitandDraw(model1a, points, 10)
-    model1a = KSOM(10, 10)
-    FitandDraw(model1a, points, 250)
+    model1a = KSOM(1, 100)
+    model1a.fit(points, 250)
     # 1 B (10,10)
+    model1b = KSOM(10, 10)
+    model1b.fit(points, 250)
     # 1 C Non uniform a
-    # points = createDataSet(2)
+    points = createDataSet(2)
     model1c = KSOM(1, 100)
-    # FitandDraw(model1c, points)
+    model1c.fit(points, 1000)
     # 1 D Non uniform b
     points = createDataSet(3)
     model1c.fit(points, 500)
+    # 1 E Donut
+    points = createDataSet(4)
+    model1e = KSOM(1, 30)
+    model1e.fit(points, 250)
+    # 2 A Monkey hand
+    points = createDataSet(5)
+    model2a = KSOM(15, 15)
+    model2a.fit(points, 250)
+    # 1 E Cut off Monkey hand
+    points = createDataSet(6)
+    model2b = KSOM(model2a, model2a)
+    model2b.fit(points, 250)

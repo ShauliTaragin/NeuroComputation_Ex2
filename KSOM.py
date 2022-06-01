@@ -75,7 +75,7 @@ class KSOM:
     def fit(self, input_data, num_of_iterations):
         for t in range(num_of_iterations):
             print(f"iter number :{t}")
-            if t % 50 == 0 or t == 10:
+            if t % 50 == 0 or t == 20:
                 self.plotClusters(input_data, t, num_of_iterations)
             # check if we need to make the points random
             for point in input_data:
@@ -100,19 +100,15 @@ class KSOM:
             for j in range(self.shape[1]):
                 dist = np.linalg.norm(np.asarray(best_j) - np.array([i, j]))
                 radius = np.exp(-dist ** 2 / (2 * self.radius ** 2))
-                # print(self.clusters[i][j])
+
                 self.clusters[i][j][0] += self.learning_rate * radius * (
                         current_point[0] - self.clusters[i][j][0])
                 self.clusters[i][j][1] += self.learning_rate * radius * (
                         current_point[1] - self.clusters[i][j][1])
-                # print(self.clusters[i][j])
-                # print()
 
     def update_learning_rate(self, t):
         # lessen the learning rate
         self.learning_rate *= 0.9 * (1 - (t / 1000))
-        pass
 
     def update_radius(self, t):
         self.radius *= 0.9 * (1 - (t / 1000))
-        pass
