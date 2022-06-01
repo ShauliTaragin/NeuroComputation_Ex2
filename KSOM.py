@@ -12,13 +12,14 @@ class KSOM:
             temp_clusters = np.random.rand(w, 2)
             self.clusters = [[[i[0], i[1]] for i in temp_clusters]]
         else:
-            temp_clusters = np.random.rand((w, 2))
-            Temp_clusters = [[i[0], i[1]] for i in temp_clusters]
-            k = 0
+            self.clusters = [[[0,0]] * 10 for i in range(10)]
             for i in range(10):
                 for j in range(10):
-                    self.clusters[i][j] = Temp_clusters[k]
-                    k += 1
+                    # since we have a 10x10 cluster matrix we want each point in the matrix to be in order
+                    # therefore we draw x and y in this manner e.g i=0,j=0 ==> x=(0.0,0.1),y=(0.0,0.1)
+                    x = np.random.uniform(i * 0.1, i * 0.1 + 0.1)
+                    y = np.random.uniform(j * 0.1, j * 0.1 + 0.1)
+                    self.clusters[i][j] = [x, y]
         self.shape = (h, w)
         self.radius = r
 

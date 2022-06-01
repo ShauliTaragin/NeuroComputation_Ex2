@@ -26,7 +26,10 @@ def saveDataSet(DataSetPoints):
 if __name__ == '__main__':
     points = createDataSet()
     saveDataSet(points)
-    model=KSOM(1,100)
-    model.fit(points,10)
+    # 1 A (1,100)
+    model1a=KSOM(1,100)
+    model1a.fit(points,10)
+    # 1 B (10,10)
+    model1b=KSOM(10,10)
 
 
