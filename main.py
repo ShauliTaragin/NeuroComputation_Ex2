@@ -69,7 +69,7 @@ def createDataSet(condition):
         while len(points) != 1000:
             x = np.random.randint(-10000, 10000)
             y = np.random.randint(-10000, 10000)
-            if (x / 1000, y / 1000) not in points and 2 <= (x / 1000) ** 2 + (y / 1000) ** 2 <= 4:
+            if (x / 1000, y / 1000) not in points and 2 <= (x/1000) ** 2 + (y/1000) ** 2 <= 4:
                 points.append((x / 1000, y / 1000))
     elif condition == 6: # cut off hand
         for j in range(200):

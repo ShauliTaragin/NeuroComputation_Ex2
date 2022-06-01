@@ -75,7 +75,9 @@ class KSOM:
     def fit(self, input_data, num_of_iterations):
         for t in range(num_of_iterations):
             print(f"iter number :{t}")
-            if t % 50 == 0 or t == 20:
+            if t % 50 == 0:
+                self.plotClusters(input_data, t, num_of_iterations)
+            elif t == 0 or t == 10 or t == 20 or t == 30 or t == 40:
                 self.plotClusters(input_data, t, num_of_iterations)
             # check if we need to make the points random
             for point in input_data:
