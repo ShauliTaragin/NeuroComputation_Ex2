@@ -18,8 +18,8 @@ class KSOM:
                 for j in range(w):
                     # since we have a 10x10 cluster matrix we want each point in the matrix to be in order
                     # therefore we draw x and y in this manner e.g i=0,j=0 ==> x=(0.0,0.1),y=(0.0,0.1)
-                    x = np.random.uniform(i * (1/h), i * (1/h) + (1/h))
-                    y = np.random.uniform(j * (1/w), j * (1/w) + (1/w))
+                    x = np.random.uniform(i * (1 / h), i * (1 / h) + (1 / h))
+                    y = np.random.uniform(j * (1 / w), j * (1 / w) + (1 / w))
                     self.clusters[i][j] = [x, y]
         x_model_a = []
         y_model_a = []
@@ -53,14 +53,17 @@ class KSOM:
             for i in range(self.shape[0]):
                 for j in range(self.shape[1]):
                     if i - 1 >= 0:
-                        # print([x_model_a[i - 1], x_model_a[i]], [y_model_a[j], y_model_a[j]])
-                        plt.plot([x_model_a[i - 1], x_model_a[i]], [y_model_a[j], y_model_a[j]], color="maroon")
+                        plt.plot([self.clusters[i][j][0], self.clusters[i - 1][j][0]],
+                                 [self.clusters[i][j][1], self.clusters[i - 1][j][1]], color="maroon")
                     if j - 1 >= 0:
-                        plt.plot([x_model_a[i], x_model_a[i]], [y_model_a[j - 1], y_model_a[j]], color="maroon")
+                        plt.plot([self.clusters[i][j][0], self.clusters[i][j - 1][0]],
+                                 [self.clusters[i][j][1], self.clusters[i][j - 1][1]], color="maroon")
                     if i + 1 < self.shape[0]:
-                        plt.plot([x_model_a[i], x_model_a[i + 1]], [y_model_a[j], y_model_a[j]], color="maroon")
+                        plt.plot([self.clusters[i][j][0], self.clusters[i + 1][j][0]],
+                                 [self.clusters[i][j][1], self.clusters[i + 1][j][1]], color="maroon")
                     if j + 1 < self.shape[1]:
-                        plt.plot([x_model_a[i], x_model_a[i]], [y_model_a[j], y_model_a[j + 1]], color="maroon")
+                        plt.plot([self.clusters[i][j][0], self.clusters[i][j + 1][0]],
+                                 [self.clusters[i][j][1], self.clusters[i][j + 1][1]], color="maroon")
         if current_iteration != num_of_iteration - 1:
             plt.title("Amount of Points:" + str(len(points)) + " | "
                       + "Num of Iter:" + str(num_of_iteration) +
@@ -73,6 +76,8 @@ class KSOM:
                       "\n" +
                       "This is the final iteration" + " | " +
                       "Amount of Clusters:" + str(self.shape) + " | ")
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
         plt.show()
 
     def fit(self, input_data, num_of_iterations):

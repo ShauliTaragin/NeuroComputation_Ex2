@@ -101,7 +101,8 @@ def FitandDraw(model, data, iterations):
 
 
 if __name__ == '__main__':
-    #points = createDataSet(1)
+    # points = createDataSet(1)
+    points = createDataSet(1)
     # saveDataSet(points)
     # 1 A (1,100)
     # model1a = KSOM(1, 100)
