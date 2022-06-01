@@ -63,6 +63,8 @@ class KSOM:
             self.update_learning_rate(t)
             print(self.learning_rate)
             self.update_radius(t)
+            if t % 10 == 0:
+                self.plotClusters()
             # print(self.clusters)
 
     def update_weights_1D(self, best_j, current_point):
@@ -76,6 +78,19 @@ class KSOM:
         pass
 
     def update_weights(self, best_j: list, current_point: tuple):
+        for i in range(self.shape[0]):
+            for j in range(self.shape[1]):
+                dist = np.linalg.norm(np.asarray(best_j) - np.array([i, j]))
+                radius = np.exp(-dist ** 2 / (2 * self.radius ** 2))
+                # print(self.clusters[i][j])
+                self.clusters[i][j][0] += self.learning_rate * radius * (
+                        current_point[0] - self.clusters[i][j][0])
+                self.clusters[i][j][1] += self.learning_rate * radius * (
+                        current_point[1] - self.clusters[i][j][1])
+                # print(self.clusters[i][j])
+                # print()
+
+    def update_weights2(self, best_j: list, current_point: tuple):
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
                 dist = np.linalg.norm(np.asarray(best_j) - np.array([i, j]))

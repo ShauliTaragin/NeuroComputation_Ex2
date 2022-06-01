@@ -39,6 +39,8 @@ if __name__ == '__main__':
             y_model_a.append(model1a.clusters[i][j][1])
     plt.scatter(x_points,y_points,color = "blue",s=70, alpha=0.5)
     plt.scatter(x_model_a,y_model_a,color ="red")
+    plt.xlim(0,1)
+    plt.ylim(0,1)
     plt.show()
     # 1 B (10,10)
     # model1b=KSOM(10,10)
