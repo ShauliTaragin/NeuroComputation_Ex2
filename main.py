@@ -31,5 +31,7 @@ if __name__ == '__main__':
     model1a.fit(points,10)
     # 1 B (10,10)
     model1b=KSOM(10,10)
+    model1b.fit(points,10)
+
 
 

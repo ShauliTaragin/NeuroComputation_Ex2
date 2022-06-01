@@ -12,7 +12,7 @@ class KSOM:
             temp_clusters = np.random.rand(w, 2)
             self.clusters = [[[i[0], i[1]] for i in temp_clusters]]
         else:
-            self.clusters = [[[0,0]] * 10 for i in range(10)]
+            self.clusters = [[[0, 0]] * 10 for i in range(10)]
             for i in range(10):
                 for j in range(10):
                     # since we have a 10x10 cluster matrix we want each point in the matrix to be in order
@@ -25,6 +25,7 @@ class KSOM:
 
     def fit(self, input_data, num_of_iterations):
         for t in range(num_of_iterations):
+            print(self.learning_rate)
             # check if we need to make the points random
             for point in input_data:
                 # parameters to hold info from the following loop
@@ -65,9 +66,7 @@ class KSOM:
 
     def update_learning_rate(self, t):
         # lessen the learning rate
-        self.learning_rate = 0.9 * (1 - (t / 1000))
-        pass
+        self.learning_rate *= 0.9 * (1 - (t / 1000))
 
     def update_radius(self, t):
         self.radius *= 0.9 * (1 - (t / 1000))
-        pass
