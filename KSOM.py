@@ -40,7 +40,7 @@ class KSOM:
                 y_model_a.append(self.clusters[i][j][1])
         plt.scatter(x_model_a, y_model_a, color="maroon")
         plt.plot(x_model_a, y_model_a, color="maroon")
-        if current_iteration != num_of_iteration-1:
+        if current_iteration != num_of_iteration - 1:
             plt.title("Amount of Points:" + str(len(points)) + " | "
                       + "Num of Iter:" + str(num_of_iteration) +
                       "\n" +
@@ -52,12 +52,15 @@ class KSOM:
                       "\n" +
                       "This is the final iteration" + " | " +
                       "Amount of Clusters:" + str(self.shape) + " | ")
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
         plt.show()
-
 
     def fit(self, input_data, num_of_iterations):
         for t in range(num_of_iterations):
             print(f"iter number :{t}")
+            if t % 200 == 0 or t == 10 or t == 100:
+                self.plotClusters(input_data, t, num_of_iterations)
             # check if we need to make the points random
             for point in input_data:
                 # parameters to hold info from the following loop
@@ -76,9 +79,6 @@ class KSOM:
             self.update_learning_rate(t)
             print(self.learning_rate)
             self.update_radius(t)
-            if t % 10 == 0:
-                self.plotClusters(input_data, t, num_of_iterations)
-            # print(self.clusters)
         self.plotClusters(input_data, t, num_of_iterations)
 
     def update_weights_1D(self, best_j, current_point):
