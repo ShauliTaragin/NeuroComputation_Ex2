@@ -10,7 +10,7 @@ class KSOM:
         # uniform distribution for the weights
         if h == 1:
             temp_clusters = np.random.rand(w, 2)
-            self.clusters = [[i[0], i[1]] for i in temp_clusters]
+            self.clusters = [[[i[0], i[1]] for i in temp_clusters]]
         else:
             temp_clusters = np.random.rand((w, 2))
             Temp_clusters = [[i[0], i[1]] for i in temp_clusters]
@@ -30,15 +30,15 @@ class KSOM:
                 best_Dj = sys.maxsize
                 best_j = 0
                 # run on all clusters
-                for j in range(self.num_of_clusters):
-                    # dj for x   =  w_ij   -  x
-                    d_j_x = (self.clusters[j][0] - point[0])
-                    d_j_y = (self.clusters[j][1] - point[1])
-                    D_j = d_j_x ** 2 + d_j_y ** 2
-                    if best_Dj > D_j:
-                        best_Dj = D_j
-                        best_j = j
-                self.update_weights_1D(best_j, point)
+                for i in range(self.shape[0]):
+                    for j in range(self.shape[1]):
+                        d_j_x = (self.clusters[i][j][0] - point[0])
+                        d_j_y = (self.clusters[i][j][1] - point[1])
+                        D_j = d_j_x ** 2 + d_j_y ** 2
+                        if best_Dj > D_j:
+                            best_Dj = D_j
+                            best_j = [i, j]
+                self.update_weights(best_j, point)
             self.update_learning_rate(t)
             self.update_radius(t)
 
@@ -52,17 +52,15 @@ class KSOM:
 
         pass
 
-    def update_weights_2D(self, best_j: tuple, current_point: tuple):
+    def update_weights(self, best_j: list, current_point: tuple):
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
                 dist = np.linalg.norm(best_j - np.array([i, j]))
-                radius = np.exp(-dist ** 2 / (2 * self.radius ** 2))  # check that minus out of **
-
-                self.clusters[i, j][0] += self.learning_rate * radius * (
-                        current_point[0] - self.clusters[best_j[0], best_j[1]][0])
-                self.clusters[i, j][1] += self.learning_rate * radius * (
-                        current_point[1] - self.clusters[best_j[0], best_j[1]][1])
-        pass
+                radius = np.exp(-dist ** 2 / (2 * self.radius ** 2))  # check that minus out of **2
+                self.clusters[i][j][0] += self.learning_rate * radius * (
+                        current_point[0] - self.clusters[best_j[0]][best_j[1]][0])
+                self.clusters[i][j][1] += self.learning_rate * radius * (
+                        current_point[1] - self.clusters[best_j[0]][best_j[1]][1])
 
     def update_learning_rate(self, t):
         # lessen the learning rate
