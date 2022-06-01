@@ -21,26 +21,39 @@ class KSOM:
                     x = np.random.uniform(i * 0.1, i * 0.1 + 0.1)
                     y = np.random.uniform(j * 0.1, j * 0.1 + 0.1)
                     self.clusters[i][j] = [x, y]
-        x_model_a = []
-        y_model_a = []
         self.shape = (h, w)
         self.radius = r
-        for i in range(self.shape[0]):
-            for j in range(self.shape[1]):
-                x_model_a.append(self.clusters[i][j][0])
-                y_model_a.append(self.clusters[i][j][1])
-        plt.scatter(x_model_a, y_model_a, color="red")
-        plt.show()
 
-    def plotClusters(self):
+    def plotClusters(self, points, current_iteration, num_of_iteration):
+        x_points = []
+        y_points = []
+        for i in range(len(points)):
+            x_points.append(points[i][0])
+            y_points.append(points[i][1])
+        plt.scatter(x_points, y_points, alpha=0.3, color="navy")
+
         x_model_a = []
         y_model_a = []
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
                 x_model_a.append(self.clusters[i][j][0])
                 y_model_a.append(self.clusters[i][j][1])
-        plt.scatter(x_model_a, y_model_a, color="red")
+        plt.scatter(x_model_a, y_model_a, color="maroon")
+        plt.plot(x_model_a, y_model_a, color="maroon")
+        if current_iteration != num_of_iteration-1:
+            plt.title("Amount of Points:" + str(len(points)) + " | "
+                      + "Num of Iter:" + str(num_of_iteration) +
+                      "\n" +
+                      "Current Iter:" + str(current_iteration) + " | " +
+                      "Amount of Clusters:" + str(self.shape) + " | ")
+        else:
+            plt.title("Amount of Points:" + str(len(points)) + " | "
+                      + "Num of Iter:" + str(num_of_iteration) +
+                      "\n" +
+                      "This is the final iteration" + " | " +
+                      "Amount of Clusters:" + str(self.shape) + " | ")
         plt.show()
+
 
     def fit(self, input_data, num_of_iterations):
         for t in range(num_of_iterations):
@@ -64,8 +77,9 @@ class KSOM:
             print(self.learning_rate)
             self.update_radius(t)
             if t % 10 == 0:
-                self.plotClusters()
+                self.plotClusters(input_data, t, num_of_iterations)
             # print(self.clusters)
+        self.plotClusters(input_data, t, num_of_iterations)
 
     def update_weights_1D(self, best_j, current_point):
         best_n = np.array([1, best_j])
