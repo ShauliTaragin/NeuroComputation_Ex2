@@ -99,12 +99,12 @@ def FitandDraw(model, data, iterations):
 
 if __name__ == '__main__':
     # points = createDataSet(1)
-    points = createDataSet(5)
+    points = createDataSet(1)
     # saveDataSet(points)
     # 1 A (1,100)
     # model1a = KSOM(1, 100)
     # FitandDraw(model1a, points, 10)
-    model1a = KSOM(1, 100)
+    model1a = KSOM(10, 10)
     FitandDraw(model1a, points, 250)
     # 1 B (10,10)
     # 1 C Non uniform a
