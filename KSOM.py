@@ -81,22 +81,13 @@ class KSOM:
                             best_j = [i, j]
                 self.update_weights(best_j, point)
             self.update_learning_rate(t)
-            print(self.learning_rate)
             self.update_radius(t)
-            if t % 10 == 0:
+            if t == 10:
+                self.plotClusters(input_data,t,num_of_iterations)
+            if t % 100 == 0:
                 self.plotClusters(input_data, t, num_of_iterations)
-            # print(self.clusters)
-        self.plotClusters(input_data, t, num_of_iterations)
 
-    def update_weights_1D(self, best_j, current_point):
-        best_n = np.array([1, best_j])
-        for i in range(self.num_of_clusters):
-            dist = np.linalg.norm(best_n - np.array([1, i]))
-            radius = np.exp(-dist ** 2 / (2 * self.radius ** 2))  # check that minus out of **
-            self.clusters[i][0] += self.learning_rate * radius * (current_point[0] - self.clusters[best_j][0])
-            self.clusters[i][1] += self.learning_rate * radius * (current_point[1] - self.clusters[best_j][1])
 
-        pass
 
     def update_weights(self, best_j: list, current_point: tuple):
         for i in range(self.shape[0]):
@@ -108,19 +99,6 @@ class KSOM:
                         current_point[0] - self.clusters[i][j][0])
                 self.clusters[i][j][1] += self.learning_rate * radius * (
                         current_point[1] - self.clusters[i][j][1])
-                # print(self.clusters[i][j])
-                # print()
-
-    def update_weights2(self, best_j: list, current_point: tuple):
-        for i in range(self.shape[0]):
-            for j in range(self.shape[1]):
-                dist = np.linalg.norm(np.asarray(best_j) - np.array([i, j]))
-                radius = np.exp(-dist ** 2 / (2 * self.radius ** 2))  # check that minus out of **2
-                # print(self.clusters[i][j])
-                self.clusters[i][j][0] += self.learning_rate * radius * (
-                        current_point[0] - self.clusters[best_j[0]][best_j[1]][0])
-                self.clusters[i][j][1] += self.learning_rate * radius * (
-                        current_point[1] - self.clusters[best_j[0]][best_j[1]][1])
                 # print(self.clusters[i][j])
                 # print()
 
