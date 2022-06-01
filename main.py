@@ -27,6 +27,6 @@ if __name__ == '__main__':
     points = createDataSet()
     saveDataSet(points)
     model=KSOM(1,100)
-    model.fit(points,100)
+    model.fit(points,10)
 
 
