@@ -39,8 +39,21 @@ class KSOM:
                 x_model_a.append(self.clusters[i][j][0])
                 y_model_a.append(self.clusters[i][j][1])
         plt.scatter(x_model_a, y_model_a, color="maroon")
-        plt.plot(x_model_a, y_model_a, color="maroon")
-        if current_iteration != num_of_iteration-1:
+        if self.shape[0] == 1:
+            plt.plot(x_model_a, y_model_a, color="maroon")
+        else:
+            for i in range(self.shape[0]):
+                for j in range(self.shape[1]):
+                    if i - 1 >= 0:
+                        # print([x_model_a[i - 1], x_model_a[i]], [y_model_a[j], y_model_a[j]])
+                        plt.plot([x_model_a[i - 1], x_model_a[i]], [y_model_a[j], y_model_a[j]], color="maroon")
+                    if j - 1 >= 0:
+                        plt.plot([x_model_a[i], x_model_a[i]], [y_model_a[j - 1], y_model_a[j]], color="maroon")
+                    if i + 1 < self.shape[0]:
+                        plt.plot([x_model_a[i], x_model_a[i + 1]], [y_model_a[j], y_model_a[j]], color="maroon")
+                    if j + 1 < self.shape[1]:
+                        plt.plot([x_model_a[i], x_model_a[i]], [y_model_a[j], y_model_a[j + 1]], color="maroon")
+        if current_iteration != num_of_iteration - 1:
             plt.title("Amount of Points:" + str(len(points)) + " | "
                       + "Num of Iter:" + str(num_of_iteration) +
                       "\n" +
@@ -53,7 +66,6 @@ class KSOM:
                       "This is the final iteration" + " | " +
                       "Amount of Clusters:" + str(self.shape) + " | ")
         plt.show()
-
 
     def fit(self, input_data, num_of_iterations):
         for t in range(num_of_iterations):

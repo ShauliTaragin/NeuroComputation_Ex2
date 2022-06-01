@@ -48,12 +48,12 @@ if __name__ == '__main__':
     points = createDataSet(1)
     # saveDataSet(points)
     # 1 A (1,100)
-    model1a = KSOM(1, 100)
-    FitandDraw(model1a, points, 10)
+    # model1a = KSOM(1, 100)
+    # FitandDraw(model1a, points, 10)
     # 1 B (10,10)
-    # model1b=KSOM(10,10)
-    # FitandDraw(model1a , points)
-    # # 1 C Non uniform a
+    model1b=KSOM(10,10)
+    FitandDraw(model1b , points,100)
+    # 1 C Non uniform a
     # points = createDataSet(2)
     # model1c = KSOM(1, 15)
     # FitandDraw(model1c, points)
