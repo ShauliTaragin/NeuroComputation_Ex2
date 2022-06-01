@@ -107,12 +107,12 @@ if __name__ == '__main__':
     # model1a = KSOM(1, 100)
     # FitandDraw(model1a, points, 10)
     # 1 B (10,10)
-    model1b=KSOM(10,10)
-    FitandDraw(model1b , points,100)
+    # model1b=KSOM(10,10)
+    # FitandDraw(model1b , points,100)
     # 1 C Non uniform a
     # points = createDataSet(2)
-    model1c = KSOM(1, 100)
+    model1c = KSOM(15,15, num_of_clusters=225)
     # FitandDraw(model1c, points)
     # 1 D Non uniform b
-    points = createDataSet(3)
-    model1c.fit(points,500)
+    points = createDataSet(4)
+    model1c.fit(points, 250)

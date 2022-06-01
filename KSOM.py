@@ -78,6 +78,10 @@ class KSOM:
     def fit(self, input_data, num_of_iterations):
         for t in range(num_of_iterations):
             print(f"iter number :{t}")
+            if t == 10:
+                self.plotClusters(input_data,t,num_of_iterations)
+            if t % 50 == 0:
+                self.plotClusters(input_data, t, num_of_iterations)
             # check if we need to make the points random
             for point in input_data:
                 # parameters to hold info from the following loop
@@ -95,10 +99,7 @@ class KSOM:
                 self.update_weights(best_j, point)
             self.update_learning_rate(t)
             self.update_radius(t)
-            if t == 10:
-                self.plotClusters(input_data,t,num_of_iterations)
-            if t % 100 == 0:
-                self.plotClusters(input_data, t, num_of_iterations)
+
 
 
 
